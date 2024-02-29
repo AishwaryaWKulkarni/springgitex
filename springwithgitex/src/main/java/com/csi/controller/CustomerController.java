@@ -56,4 +56,11 @@ public class CustomerController {
         customerServiceImpl.deleteById(custId);
         return ResponseEntity.ok("Data deleted Successfully");
     }
+
+    @GetMapping("/hey")
+
+    public ResponseEntity<String> sayHello() {
+
+        return ResponseEntity.ok("Welcome");
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,14 @@ public class CustomerController {
     public ResponseEntity<Customer> signUp(@Valid @RequestBody Customer customer) {
         return new ResponseEntity<>(customerServiceImpl.signUp(customer), HttpStatus.CREATED);
     }
+
+    @GetMapping("/sortbyname/{empName}")
+
+    public ResponseEntity<List<Customer>> sortByName() {
+
+        return ResponseEntity.ok(customerServiceImpl.findAll().stream().sorted(Comparator.comparing(Customer::getCustName).reversed()).toList());
+    }
+    
 
     @GetMapping("/signin/{custEmailId}/{custPassword}")
     public ResponseEntity<Boolean> signIn(@PathVariable String custEmailId, @PathVariable String custPassword) {
